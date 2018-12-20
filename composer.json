@@ -1,0 +1,12 @@
+{
+  "name": "chaseisabelle/pfuncs",
+  "description": "a collection of useful php functions",
+  "autoload": {
+    "files" : [
+      "src/*"
+    ]
+  },
+  "require": {
+    "php": "^5.4"
+  }
+}
