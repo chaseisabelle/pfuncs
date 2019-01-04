@@ -19,30 +19,6 @@ function json_dump($array) {
 }
 
 /**
- * gets the last json error as a message
- *
- * @return string the last error message
- */
-function json_error() {
-    switch (json_last_error()) {
-        case JSON_ERROR_NONE:
-            return 'No JSON error.';
-        case JSON_ERROR_DEPTH:
-            return 'JSON error: maximum stack depth exceeded.';
-        case JSON_ERROR_STATE_MISMATCH:
-            return 'JSON error: underflow or the modes mismatch.';
-        case JSON_ERROR_CTRL_CHAR:
-            return 'JSON error: unexpected control character found.';
-        case JSON_ERROR_SYNTAX:
-            return 'JSON error: syntax error, malformed JSON.';
-        case JSON_ERROR_UTF8:
-            return 'JSON error: malformed UTF-8 characters, possibly incorrectly encoded.';
-        default:
-            return 'Unknown JSON error.';
-    }
-}
-
-/**
  * read a json file and parse it
  *
  * @param string $file is the file path
@@ -127,7 +103,7 @@ function json_pretty_print($json) {
  */
 function json_to_array($json) {
     if (!is_array($a = json_decode(utf8_encode($json), 1))) {
-        trigger_error(json_error());
+        pfunc_error(json_last_error_msg());
     }
 
     return $a;

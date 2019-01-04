@@ -242,7 +242,6 @@ function string_last($s) {
  */
 function string_linkify($string) {
     return preg_replace('/([a-z]+\:\/\/[a-z0-9\-\.]+\.[a-z]+(:[a-z0-9]*)?\/?([a-z0-9\-\._\:\?\,\'\/\\\+&%\$#\=~])*[^\.\,\)\(\s])/i', '<a href="\1">\1</a>', $string);
-    //preg_replace('/https?:\/\/[\w\-\.!~#?&=+\*\'"(),\/]+/i', '<a href="$0">$0</a>', $string);
 }
 
 /**
@@ -256,7 +255,7 @@ function string_mappify($string, $map) {
     if (!uksort($map, function ($a, $b) {
         return strlen($a) - strlen($b);
     })) {
-        trigger_error('Failed to sort mapping array.');
+        pfunc_error('Failed to sort mapping array.');
     }
 
     foreach ($map as $from => $to) {

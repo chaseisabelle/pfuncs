@@ -18,7 +18,7 @@ function file_append($file, $data, $delimiter = '') {
  */
 function file_close(&$file) {
     if (!fclose($file)) {
-        trigger_error('Failed to close file ' . spy($file) . '.');
+        pfunc_error('Failed to close file ' . spy($file) . '.');
     }
 
     destroy($file);
@@ -37,7 +37,7 @@ function file_read($file, $default = null) {
     }
 
     if (!is_string($data = file_get_contents($file))) {
-        trigger_error('Failed to read ' . spy($file) . '.');
+        pfunc_error('Failed to read ' . spy($file) . '.');
     }
 
     return $data;
@@ -53,7 +53,7 @@ function file_read($file, $default = null) {
  */
 function file_write($file, $data, $flags = 0) {
     if (($bytes = file_put_contents($file, $data, $flags)) !== strlen($data)) {
-        trigger_error('Failed to write ' . spy($data) . ' to ' . spy($file) . '.');
+        pfunc_error('Failed to write ' . spy($data) . ' to ' . spy($file) . '.');
     }
 
     return $bytes;

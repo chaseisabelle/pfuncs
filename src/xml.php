@@ -22,7 +22,7 @@ function is_xml($var) {
 function xml_to_array($xml, $value_key = '#value') {
     if (!$xml instanceof DOMNode) {
         if (!($dom = new DOMDocument()) || !$dom->loadXML($xml)) {
-            trigger_error('Failed to initialize XML parser for ' . spy($xml) . '.');
+            pfunc_error('Failed to initialize XML parser for ' . spy($xml) . '.');
         }
 
         return xml_to_array($dom);
@@ -42,7 +42,7 @@ function xml_to_array($xml, $value_key = '#value') {
         $array = array_append($array, preg_match('/^\#/', $name = $node->nodeName) ? $value_key : $name, xml_to_array($node));
     }
 
-    return $array;//count($array) === 1 && array_first_key($array) === $value_key ? array_first($array) : $array;
+    return $array;
 }
 
 /**

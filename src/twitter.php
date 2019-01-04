@@ -95,7 +95,7 @@ function twitter_query($twitter, $service, $method, $request = []) {
 
             break;
         default:
-            trigger_error('Invalid Twitter request method ' . spy($method) . '.');
+            pfunc_error('Invalid Twitter request method ' . spy($method) . '.');
     }
 
     $response = $twitter->performRequest(false);
@@ -105,7 +105,7 @@ function twitter_query($twitter, $service, $method, $request = []) {
     }
 
     if (isset($response['errors'])) {
-        trigger_error('Twitter says "' . implode('" and "', array_column($response['errors'], 'message')) . '".');
+        pfunc_error('Twitter says "' . implode('" and "', array_column($response['errors'], 'message')) . '".');
     }
 
     return $response;
@@ -138,7 +138,6 @@ function twitter_taggify($text) {
     $text = preg_replace('#@([\\d\\w]+)#', '<a href="http://twitter.com/$1">$0</a>', $text);
 
     return preg_replace('/\s#([\\d\\w]+)/', '<a href="http://twitter.com/search?q=%23$1&src=hash">' . trim('$0') . '</a>', $text);
-    //preg_replace('/#(\w+)/', '<a href="http://twitter.com/search?q=%23' . "$1" . '&src=hash">#' . "$1" . '</a>', preg_replace('/\@(\w+)/', '<a href="http://twitter.com/' . "$1" . '">@' . "$1" . '</a>', $text));
 }
 
 /**

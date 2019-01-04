@@ -52,7 +52,7 @@ function execute($command) {
         exec($command, $output, $code);
 
         if ($code !== 0) {
-            trigger_error('Failed to execute ' . spy($command) . ' (' . spy($code) . ').');
+            pfunc_error('Failed to execute ' . spy($command) . ' (' . spy($code) . ').');
         }
 
         return implode("\n", $output);
@@ -168,7 +168,7 @@ function js_minify($js) {
  */
 function mv($from, $to) {
     if (!rename($from, $to)) {
-        trigger_error('Failed to rename file ' . spy($from) . ' to ' . spy($to) . '.');
+        pfunc_error('Failed to rename file ' . spy($from) . ' to ' . spy($to) . '.');
     }
 }
 
@@ -246,7 +246,7 @@ function rand_arg() {
 }
 
 /**
- * returns a random oolean value
+ * returns a random boolean value
  *
  * @return bool a random bool value
  */
@@ -279,7 +279,7 @@ function require_dir($dir, $recursive = false) {
  */
 function rm($file) {
     if (!unlink($file)) {
-        trigger_error('Failed to delete file ' . spy($file) . '.');
+        pfunc_error('Failed to delete file ' . spy($file) . '.');
     }
 }
 
@@ -301,44 +301,6 @@ function scan_dir($dir) {
     }
 
     return $files;
-}
-
-/**
- * this function is deprecated - see https://developers.google.com/image-search/v1/jsondevguide?hl=fr
- *
- * @deprecated
- * @param string $q is the search request
- * @return array and array with the response data
- */
-function search_google_images($q) {
-    return json_to_array(url_get('https://ajax.googleapis.com/ajax/services/search/images', ['v' => '1.0', 'q' => $q]));
-}
-
-/**
- * attemps to send an email
- *
- * @param string $to is the email to send to
- * @param string $from is the email to send from
- * @param string $subject is the subjecfty
- * @param string $text is the text body of teh email
- */
-function send_email($to, $from, $subject, $text) {
-    $boundary = uniqid();
-
-    $headers = "MIME-Version: 1.0\r\n";
-
-    $headers .= "From: $from \r\n";
-    $headers .= "To: $to\r\n";
-    $headers .= "Content-Type: multipart/alternative;boundary=$boundary\r\n";
-
-    $message = "\r\n\r\n--" . $boundary . "\r\n";
-    $message .= "Content-type: text/plain;charset=utf-8\r\n\r\n";
-    $message .= $text;
-    $message .= "\r\n\r\n--$boundary\r\n";
-
-    if (!mail('', $subject, $message, $headers, '-f ' . $from)) {
-        trigger_error('Failed to send email.');
-    }
 }
 
 /**
@@ -386,7 +348,7 @@ function spy($x) {
             return '[' . spy(array_shift($x)) . ', ..., ' . spy(array_pop($x)) . ']';
     }
 
-    trigger_error('This is madness! Madness? This is PHP!');
+    pfunc_error('This is madness! Madness? This is PHP!');
 }
 
 /**

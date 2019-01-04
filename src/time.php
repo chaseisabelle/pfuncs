@@ -9,7 +9,7 @@
  * @param string $to is the unit to convert to
  * @return number the length of time converted
  */
-function conv_time($units, $from, $to) {
+function convert_time($units, $from, $to) {
     $to   = string_first($to);
     $from = string_first($from);
 

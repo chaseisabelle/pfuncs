@@ -64,7 +64,7 @@ function image_crop($image, $x = 0, $y = 0, $width = null, $height = null) {
  */
 function image_dump($image, $type = 'jpeg', $file = null) {
     if (!function_exists($func = 'image' . $type)) {
-        trigger_error('Invalid image type ' . spy($type) . '.');
+        pfunc_error('Invalid image type ' . spy($type) . '.');
     }
 
     call_user_func($func, $image, $file);
@@ -97,7 +97,7 @@ function image_open($file_or_w, $h = null) {
     }
 
     if (!function_exists($func)) {
-        trigger_error('Function "' . $func . '" does not exist.');
+        pfunc_error('Function "' . $func . '" does not exist.');
     }
 
     return call_user_func_array($func, func_get_args());

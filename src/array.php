@@ -6,30 +6,13 @@
  * @return array
  */
 function object_to_array($object) {
-    return json_decode(json_encode($object), true);
-}
+    $string = json_encode($object);
 
-/**
- * appends a value to an array with a key; but, if the key already exists then it will rename the key with a numeric suffix
- *
- * <code>
- * $a = ['a' => 1, 'b' => 2, 'c' => 3];
- * $a = array_append($a, 'c', 4); //<< $a['c2'] = 4;
- * </code>
- *
- * @param mixed[] $array the array
- * @param mixed $key the key
- * @param mixed $value the value
- * @return mixed[] the new array
- */
-function array_append($array, $key, $value) {
-    $inc = 0;
+    if (!$string) {
+        pfunc_error(json_last_error_msg());
+    }
 
-    while (array_key_exists($add = $key . (++$inc < 2 ? '' : $inc), $array));
-
-    $array[$add] = $value;
-
-    return $array;
+    return json_to_array($string, true);
 }
 
 /**
@@ -61,28 +44,6 @@ function array_body($array, $from, $to) {
     $offset = array_index($array, $from);
 
     return $array ? array_slice($array, $offset, array_index($array, $to) - $offset + 1, 1) : [];
-}
-
-/**
- * concats one or more arrays, like + operator with arrays but will not overwrite values with same keys
- * if keys are not unique then they will not be completely preserved
- *
- * <code>
- * array_cat(['a' => 'A'], ['a' => 'B']); //<< returns ['a' => 'A', 'a1' => 'B']
- * </code>
- *
- * @param mixed[] $a is the initial array
- * @param mixed[] $b is the array to append onto the first array
- * @return mixed[] the concatted arrays
- */
-function array_cat($a, $b) {
-    foreach (array_tail(func_get_args(), 1) as $b) {
-        foreach ($b as $k => $v) {
-            $a = array_append($a, $k, $v);
-        }
-    }
-
-    return $a;
 }
 
 /**
@@ -164,7 +125,7 @@ function array_first($a, $d = null) {
         return $d;
     }
 
-    trigger_error('Cannot get first element of empty array ' . spy($a) . '.');
+    pfunc_error('Cannot get first element of empty array ' . spy($a) . '.');
 }
 
 /**
@@ -279,7 +240,7 @@ function array_index($array, $key) {
         }
     }
 
-    trigger_error('Failed to get index of ' . spy($key) . ' in ' . spy($array) . '.');
+    pfunc_error('Failed to get index of ' . spy($key) . ' in ' . spy($array) . '.');
 }
 
 /**
@@ -304,7 +265,7 @@ function array_key($array, $value, $strict = 1) {
     $key = array_search($value, $array, $strict);
 
     if ($key === false) {
-        trigger_error('No key found for ' . spy($value) . ' in ' . spy($array) . '.');
+        pfunc_error('No key found for ' . spy($value) . ' in ' . spy($array) . '.');
     }
 
     return $key;
@@ -319,7 +280,7 @@ function array_key($array, $value, $strict = 1) {
  */
 function array_krsort($array, $flags = SORT_REGULAR) {
     if (!krsort($array, $flags)) {
-        trigger_error('Failed to sort ' . spy($array) . ' by keys in reverse.');
+        pfunc_error('Failed to sort ' . spy($array) . ' by keys in reverse.');
     }
 
     return $array;
@@ -341,7 +302,7 @@ function array_ksort($array, $flags = SORT_REGULAR) {
         !$callable && !ksort($array, $flags) ||
         !$callable && !is_whole($flags)
     ) {
-        trigger_error('Failed to sort ' . spy($array) . ' by keys.');
+        pfunc_error('Failed to sort ' . spy($array) . ' by keys.');
     }
 
     return $array;
@@ -362,7 +323,7 @@ function array_last($a, $d = null) {
         return $d;
     }
 
-    trigger_error('Cannot get last element of empty array ' . spy($a) . '.');
+    pfunc_error('Cannot get last element of empty array ' . spy($a) . '.');
 }
 
 /**
@@ -466,7 +427,7 @@ function array_set_last($array, $key) {
  */
 function array_shuffle($array) {
     if (!shuffle($array)) {
-        trigger_error('Failed to shuffle array ' . spy($array) . '.');
+        pfunc_error('Failed to shuffle array ' . spy($array) . '.');
     }
 
     return $array;
@@ -487,7 +448,7 @@ function array_sort($array, $flags = SORT_REGULAR) {
         !$callable && !asort($array, $flags) ||
         !$callable && !is_whole($flags)
     ) {
-        trigger_error('Failed to sort array ' . spy($array) . '.');
+        pfunc_error('Failed to sort array ' . spy($array) . '.');
     }
 
     return $array;
@@ -529,7 +490,7 @@ function array_to_json($a) {
     $json = json_encode($a);
 
     if (!is_string($json)) {
-        trigger_error('Failed to convert ' . spy($a) . ' to JSON.');
+        pfunc_error(json_last_error_msg());
     }
 
     return $json;

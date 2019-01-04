@@ -99,7 +99,7 @@ function content_type($ext = null) {
             return 'text/html';
     }
 
-    trigger_error('IDK WTF happned :-(');
+    pfunc_error('IDK WTF happned :-(');
 }
 
 /**
@@ -118,7 +118,7 @@ function controller() {
  */
 function controller_and_action() {
     if (!is_array($_['uri'] = explode('/', ($_['uri'] = parse_url(trim($_SERVER['REQUEST_URI'], '/'), PHP_URL_PATH))))) {
-        trigger_error('Failed to parse requested URI ' . spy($_SERVER['REQUEST_URI']) . '.');
+        pfunc_error('Failed to parse requested URI ' . spy($_SERVER['REQUEST_URI']) . '.');
     }
 
     if ($_['uri'][0] === '') {
@@ -330,13 +330,6 @@ function requested_url($query = false) {
 }
 
 /**
- * builds the current uri
- *
- * @param bool $query weather to include the query string or not
- * @return string the uri
- */
-
-/**
  * gets a value from the session array or default if key doesnt exist
  *
  * @param string $k i sthe key
@@ -357,18 +350,6 @@ function session_get($k, $d, $c = false) {
  */
 function upload_get($k, $d, $c = false) {
     return array_get($_FILES, $k, ['tmp_name' => $d], $c)['tmp_name'];
-}
-
-/**
- * trigger an http error
- *
- * @param string $message is the error message
- * @param int $status is the error staus code
- */
-function http_error($message = 'Internal Server Error', $status = 500) {
-    $___httpstatuscode___ = $status;
-
-    trigger_error($message, E_USER_ERROR);
 }
 
 /**
