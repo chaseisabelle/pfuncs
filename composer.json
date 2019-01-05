@@ -3,7 +3,7 @@
   "description": "a collection of useful php functions",
   "autoload": {
     "files" : [
-      "src/*"
+      "src/pfuncs.php"
     ]
   }
 }
