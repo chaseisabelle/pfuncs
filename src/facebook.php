@@ -10,7 +10,7 @@ function facebook_auth($fb, $scope = []) {
     $error = request_get('error_message', 0);
 
     if ($error && is_string(request_get('error_code', 0))) {
-        pfunc_error($error);
+        error($error);
     }
 
     if (!facebook_authed($fb)) {
@@ -82,7 +82,7 @@ function facebook_pager($page, $direction = null, $limit = null) {
  */
 function facebook_allowed() {
     if (!facebook_authed()) {
-        pfunc_error('Must login to Facebook and authorize app.');
+        error('Must login to Facebook and authorize app.');
     }
 }
 
@@ -99,7 +99,7 @@ function facebook_query($fb, $fields = '', $uri = 'me', $method = 'GET') {
     facebook_allowed();
 
     if ($method !== 'GET') {
-        pfunc_error($method . ' not supported for facebook yet');
+        error($method . ' not supported for facebook yet');
     }
 
     $response = json_fread('https://graph.facebook.com/' . ltrim($uri, '/') . '?' . http_build_query([
@@ -111,7 +111,7 @@ function facebook_query($fb, $fields = '', $uri = 'me', $method = 'GET') {
     $error = array_get(array_get($response, 'error', []), 'message', null);
 
     if ($error) {
-        pfunc_error($error);
+        error($error);
     }
 
     return $response;
@@ -179,7 +179,7 @@ function facebook_state($reset = false) {
     $state = session_get($key, null);
 
     if (!$state) {
-        pfunc_error('Failed to set/get Facebook state.');
+        error('Failed to set/get Facebook state.');
     }
 
     return $state;

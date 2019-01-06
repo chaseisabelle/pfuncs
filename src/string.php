@@ -255,7 +255,7 @@ function string_mappify($string, $map) {
     if (!uksort($map, function ($a, $b) {
         return strlen($a) - strlen($b);
     })) {
-        pfunc_error('Failed to sort mapping array.');
+        error('Failed to sort mapping array.');
     }
 
     foreach ($map as $from => $to) {

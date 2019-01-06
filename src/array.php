@@ -9,7 +9,7 @@ function object_to_array($object) {
     $string = json_encode($object);
 
     if (!$string) {
-        pfunc_error(json_last_error_msg());
+        error(json_last_error_msg());
     }
 
     return json_to_array($string, true);
@@ -125,7 +125,7 @@ function array_first($a, $d = null) {
         return $d;
     }
 
-    pfunc_error('Cannot get first element of empty array ' . spy($a) . '.');
+    error('Cannot get first element of empty array ' . spy($a) . '.');
 }
 
 /**
@@ -240,7 +240,7 @@ function array_index($array, $key) {
         }
     }
 
-    pfunc_error('Failed to get index of ' . spy($key) . ' in ' . spy($array) . '.');
+    error('Failed to get index of ' . spy($key) . ' in ' . spy($array) . '.');
 }
 
 /**
@@ -265,7 +265,7 @@ function array_key($array, $value, $strict = 1) {
     $key = array_search($value, $array, $strict);
 
     if ($key === false) {
-        pfunc_error('No key found for ' . spy($value) . ' in ' . spy($array) . '.');
+        error('No key found for ' . spy($value) . ' in ' . spy($array) . '.');
     }
 
     return $key;
@@ -280,7 +280,7 @@ function array_key($array, $value, $strict = 1) {
  */
 function array_krsort($array, $flags = SORT_REGULAR) {
     if (!krsort($array, $flags)) {
-        pfunc_error('Failed to sort ' . spy($array) . ' by keys in reverse.');
+        error('Failed to sort ' . spy($array) . ' by keys in reverse.');
     }
 
     return $array;
@@ -302,7 +302,7 @@ function array_ksort($array, $flags = SORT_REGULAR) {
         !$callable && !ksort($array, $flags) ||
         !$callable && !is_whole($flags)
     ) {
-        pfunc_error('Failed to sort ' . spy($array) . ' by keys.');
+        error('Failed to sort ' . spy($array) . ' by keys.');
     }
 
     return $array;
@@ -323,7 +323,7 @@ function array_last($a, $d = null) {
         return $d;
     }
 
-    pfunc_error('Cannot get last element of empty array ' . spy($a) . '.');
+    error('Cannot get last element of empty array ' . spy($a) . '.');
 }
 
 /**
@@ -427,7 +427,7 @@ function array_set_last($array, $key) {
  */
 function array_shuffle($array) {
     if (!shuffle($array)) {
-        pfunc_error('Failed to shuffle array ' . spy($array) . '.');
+        error('Failed to shuffle array ' . spy($array) . '.');
     }
 
     return $array;
@@ -448,7 +448,7 @@ function array_sort($array, $flags = SORT_REGULAR) {
         !$callable && !asort($array, $flags) ||
         !$callable && !is_whole($flags)
     ) {
-        pfunc_error('Failed to sort array ' . spy($array) . '.');
+        error('Failed to sort array ' . spy($array) . '.');
     }
 
     return $array;
@@ -490,7 +490,7 @@ function array_to_json($a) {
     $json = json_encode($a);
 
     if (!is_string($json)) {
-        pfunc_error(json_last_error_msg());
+        error(json_last_error_msg());
     }
 
     return $json;

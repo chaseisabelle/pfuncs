@@ -52,7 +52,7 @@ function execute($command) {
         exec($command, $output, $code);
 
         if ($code !== 0) {
-            pfunc_error('Failed to execute ' . spy($command) . ' (' . spy($code) . ').');
+            error('Failed to execute ' . spy($command) . ' (' . spy($code) . ').');
         }
 
         return implode("\n", $output);
@@ -168,7 +168,7 @@ function js_minify($js) {
  */
 function mv($from, $to) {
     if (!rename($from, $to)) {
-        pfunc_error('Failed to rename file ' . spy($from) . ' to ' . spy($to) . '.');
+        error('Failed to rename file ' . spy($from) . ' to ' . spy($to) . '.');
     }
 }
 
@@ -279,7 +279,7 @@ function require_dir($dir, $recursive = false) {
  */
 function rm($file) {
     if (!unlink($file)) {
-        pfunc_error('Failed to delete file ' . spy($file) . '.');
+        error('Failed to delete file ' . spy($file) . '.');
     }
 }
 
@@ -348,7 +348,7 @@ function spy($x) {
             return '[' . spy(array_shift($x)) . ', ..., ' . spy(array_pop($x)) . ']';
     }
 
-    pfunc_error('This is madness! Madness? This is PHP!');
+    error('This is madness! Madness? This is PHP!');
 }
 
 /**

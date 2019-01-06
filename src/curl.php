@@ -28,7 +28,7 @@ function curl_content_type($curl) {
     $content_type = curl_info($curl, CURLINFO_CONTENT_TYPE);
 
     if (is_null($content_type)) {
-        pfunc_error('Failed to determine document content type for ' . spy($curl) . '.');
+        error('Failed to determine document content type for ' . spy($curl) . '.');
     }
 
     return $content_type;
@@ -41,7 +41,7 @@ function curl_info($curl, $option = 0) {
     $info = curl_getinfo($curl, $option);
 
     if (is_bool($info)) {
-        pfunc_error('Failed to get ' . spy($option) . ' for ' . spy($curl) . '.');
+        error('Failed to get ' . spy($option) . ' for ' . spy($curl) . '.');
     }
 
     return $info;
@@ -77,7 +77,7 @@ function curl_open($url = null, $request = []) {
     $curl = curl_init($url);
 
     if (!$curl) {
-        pfunc_error('Failed to open cURL resource for ' . spy($url) . '.');
+        error('Failed to open cURL resource for ' . spy($url) . '.');
     }
 
     return curl_options($curl, [CURLOPT_RETURNTRANSFER => 1, CURLOPT_TIMEOUT => 60]);
@@ -93,7 +93,7 @@ function curl_query($curl) {
     $response = curl_exec($curl);
 
     if (!is_string($response)) {
-        pfunc_error('Failed to execute cURL query for ' . spy($curl) . '.');
+        error('Failed to execute cURL query for ' . spy($curl) . '.');
     }
 
     return $response;
@@ -107,7 +107,7 @@ function curl_query($curl) {
  */
 function curl_require_code($curl, $code = 200) {
     if (curl_code($curl) !== intval($code)) {
-        pfunc_error(curl_url($curl) . ' responded with code ' . curl_code($curl) . ' instead of code ' . spy($code) . '.');
+        error(curl_url($curl) . ' responded with code ' . curl_code($curl) . ' instead of code ' . spy($code) . '.');
     }
 }
 
@@ -156,7 +156,7 @@ function curl_option(&$curl, $option, $value) {
  */
 function curl_options(&$curl, $options) {
     if (!curl_setopt_array($curl, $options)) {
-        pfunc_error('Failed to initialize cURL options for ' . spy($curl) . '.');
+        error('Failed to initialize cURL options for ' . spy($curl) . '.');
     }
 
     return $curl;

@@ -47,7 +47,7 @@ function instagram_query($instagram, $endpoint, $request = []) {
     $response = json_to_array(url_get('https://api.instagram.com/v1/' . $endpoint, $request));
 
     if (!empty($response['meta']['error_message'])) {
-        pfunc_error($response['meta']['error_message']);
+        error($response['meta']['error_message']);
     }
 
     return $response;

@@ -103,7 +103,7 @@ function json_pretty_print($json) {
  */
 function json_to_array($json) {
     if (!is_array($a = json_decode(utf8_encode($json), 1))) {
-        pfunc_error(json_last_error_msg());
+        error(json_last_error_msg());
     }
 
     return $a;

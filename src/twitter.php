@@ -95,7 +95,7 @@ function twitter_query($twitter, $service, $method, $request = []) {
 
             break;
         default:
-            pfunc_error('Invalid Twitter request method ' . spy($method) . '.');
+            error('Invalid Twitter request method ' . spy($method) . '.');
     }
 
     $response = $twitter->performRequest(false);
@@ -105,7 +105,7 @@ function twitter_query($twitter, $service, $method, $request = []) {
     }
 
     if (isset($response['errors'])) {
-        pfunc_error('Twitter says "' . implode('" and "', array_column($response['errors'], 'message')) . '".');
+        error('Twitter says "' . implode('" and "', array_column($response['errors'], 'message')) . '".');
     }
 
     return $response;

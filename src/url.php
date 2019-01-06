@@ -8,7 +8,7 @@
  */
 function is_url($string, $ping = false) {
     if ($ping) {
-        pfunc_error('Ping function incomplete.');
+        error('Ping function incomplete.');
     }
 
     return filter_var($string, FILTER_VALIDATE_URL) === $string;
@@ -36,7 +36,7 @@ function url_strip($url) {
     $parsed = parse_url($url);
 
     if (!$parsed) {
-        pfunc_error('failed to parse url ' . spy($url));
+        error('failed to parse url ' . spy($url));
     }
 
     $query = array_get($parsed, 'query', null);

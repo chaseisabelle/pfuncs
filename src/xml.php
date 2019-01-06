@@ -22,7 +22,7 @@ function is_xml($var) {
 function xml_to_array($xml, $value_key = '#value') {
     if (!$xml instanceof DOMNode) {
         if (!($dom = new DOMDocument()) || !$dom->loadXML($xml)) {
-            pfunc_error('Failed to initialize XML parser for ' . spy($xml) . '.');
+            error('Failed to initialize XML parser for ' . spy($xml) . '.');
         }
 
         return xml_to_array($dom);

@@ -7,7 +7,7 @@
  */
 function pdo_begin($pdo) {
     if (!$pdo->beginTransaction()) {
-        pfunc_error('Failed to start PDO transaction for ' . spy($pdo) . '.');
+        error('Failed to start PDO transaction for ' . spy($pdo) . '.');
     }
 
     return $pdo;
@@ -80,7 +80,7 @@ function pdo_column($pdo, $request, $params = [], $default = null) {
  */
 function pdo_commit($pdo) {
     if (!$pdo->commit()) {
-        pfunc_error('Failed to commit PDO transaction for ' . spy($pdo) . '.');
+        error('Failed to commit PDO transaction for ' . spy($pdo) . '.');
     }
 
     return $pdo;
@@ -126,7 +126,7 @@ function pdo_open($driver, $host, $port, $user, $pass, $schema = null) {
     $pdo = new PDO($dsn, $user, $pass);
 
     if (!$pdo) {
-        pfunc_error('Failed to connect PDO.');
+        error('Failed to connect PDO.');
     }
 
     if ($schema) {
@@ -177,7 +177,7 @@ function pdo_query($pdo, $request, $params = []) {
             $error = 'Failed to query ' . spy($pdo) . ' with ' . spy($request) . '.';
         }
 
-        pfunc_error($error);
+        error($error);
     }
 
     switch (1) {
@@ -217,7 +217,7 @@ function pdo_rollback($pdo, $error) {
     }
 
     if (!$pdo->rollBack()) {
-        pfunc_error('Failed to rollback PDO transaction for ' . spy($pdo) . ' after error "' . $error . '".');
+        error('Failed to rollback PDO transaction for ' . spy($pdo) . ' after error "' . $error . '".');
     }
 
     return $pdo;
