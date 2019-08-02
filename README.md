@@ -1,5 +1,5 @@
 # pfuncs
-*a collection of useful php functions*
+*a collection of useful and not-so-useful php functions*
 
 ---
 #### composer.json
